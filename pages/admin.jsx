@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
-import Nav from "../components/Nav";
 import AdminImage from "../components/Admin/AdminImage";
+import Spinner from "../components/Admin/Spinner";
 import styles from "../styles/Admin.module.scss";
 import Image from "next/image";
 import axios from "axios";
@@ -68,8 +68,6 @@ const admin = () => {
 
   return (
     <div className={styles.container}>
-      <Nav />
-
       <div className={styles.coverContainer}>
         {coverPhoto && (
           <div
@@ -109,7 +107,9 @@ const admin = () => {
           </button>
         </div>
       </div>
-      {loading === true && <p>loading...</p>}
+      <div className={styles.spinnerContainer}>
+        {loading === true && <Spinner />}
+      </div>
       <div className={styles.galleryContainer}>
         <div className={styles.form}>
           <h3>GALLERY PHOTOS</h3>
@@ -132,7 +132,7 @@ const admin = () => {
               type="text"
               ref={galleryTagsRef}
               id="galleryTags"
-              placeHolder="add tags seperated by ,"
+              placeholder="add tags seperated by ,"
             />
           </span>
           <button type="button" onClick={handleGalleryAdd}>
