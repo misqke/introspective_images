@@ -49,6 +49,21 @@ export default async function handler(req, res) {
     } catch (error) {
       res.status(400).json({ message: error.message });
     }
+  } else if (req.method === "DELETE") {
+    try {
+      await Images.findByIdAndDelete(req.body._id);
+      await cloudinary.uploader.destroy(
+        req.body.cloudid,
+        { type: "upload", resource_type: "image" },
+        (result, error) => console.log(error, result)
+      );
+      const newGallery = await Images.find({ cover: false });
+      res
+        .status(200)
+        .json({ message: "Image deleted successfully", data: newGallery });
+    } catch (error) {
+      res.status(400).json({ message: error.message });
+    }
   } else {
     res.json({ message: "error" });
   }

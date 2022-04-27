@@ -1,12 +1,13 @@
 import React, { useState, useEffect, useRef } from "react";
 import Nav from "../components/Nav";
+import AdminImage from "../components/Admin/AdminImage";
 import styles from "../styles/Admin.module.scss";
 import Image from "next/image";
 import axios from "axios";
 
 const admin = () => {
   const [coverPhoto, setCoverPhoto] = useState();
-  const [galleryImages, setGalleryImages] = useState();
+  const [galleryImages, setGalleryImages] = useState([]);
   const [loading, setLoading] = useState(false);
   const coverInputRef = useRef();
   const coverSelectRef = useRef();
@@ -31,7 +32,7 @@ const admin = () => {
   const handleGalleryAdd = async () => {
     setLoading(true);
     const reader = new FileReader();
-    reader.readAsDataURL(coverInputRef.current.files[0]);
+    reader.readAsDataURL(galleryInputRef.current.files[0]);
     reader.onloadend = async () => {
       const { data } = await axios.post("http://localhost:3000/api/admin", {
         newImg: reader.result,
@@ -39,9 +40,19 @@ const admin = () => {
         position: "center",
         caption: galleryCaptionRef.current.value,
       });
-      setCoverPhoto(data.data);
+      setGalleryImages((prev) => [...prev, data.data]);
+      galleryCaptionRef.current.value = "";
       setLoading(false);
     };
+  };
+
+  const handleDeleteImage = async (img) => {
+    setLoading(true);
+    const { data } = await axios.delete("http://localhost:3000/api/admin", {
+      data: img,
+    });
+    setGalleryImages(data.data);
+    setLoading(false);
   };
 
   useEffect(() => {
@@ -110,13 +121,23 @@ const admin = () => {
             <textarea
               id="galleryCaption"
               ref={galleryCaptionRef}
-              rows={3}
+              rows={4}
               placeholder="Add a caption"
             />
           </span>
-          <button type="button" onClick={handleCoverUpdateClick}>
+          <button type="button" onClick={handleGalleryAdd}>
             Add Image
           </button>
+        </div>
+        <div className={styles.galleryImgContainer}>
+          {galleryImages.length > 0 &&
+            galleryImages.map((img) => (
+              <AdminImage
+                img={img}
+                key={img._id}
+                handleDelete={handleDeleteImage}
+              />
+            ))}
         </div>
       </div>
     </div>
