@@ -2,6 +2,8 @@ import Head from "next/head";
 import styles from "../styles/Home.module.scss";
 import Hero from "../components/Hero";
 import Nav from "../components/Nav";
+import About from "../components/About";
+import Gallery from "../components/Gallery/Gallery";
 import axios from "axios";
 
 export default function Home({ cover, gallery }) {
@@ -13,6 +15,8 @@ export default function Home({ cover, gallery }) {
       </Head>
       <Nav />
       <Hero cover={cover} />
+      <About />
+      <Gallery imgs={gallery} />
     </div>
   );
 }

@@ -13,6 +13,7 @@ const admin = () => {
   const coverSelectRef = useRef();
   const galleryInputRef = useRef();
   const galleryCaptionRef = useRef();
+  const galleryTagsRef = useRef();
 
   const handleCoverUpdateClick = async () => {
     setLoading(true);
@@ -39,6 +40,7 @@ const admin = () => {
         cover: false,
         position: "center",
         caption: galleryCaptionRef.current.value,
+        tags: galleryTagsRef.current.value.split(","),
       });
       setGalleryImages((prev) => [...prev, data.data]);
       galleryCaptionRef.current.value = "";
@@ -100,7 +102,6 @@ const admin = () => {
               <option value="bottom">bottom</option>
               <option value="left">left</option>
               <option value="right">right</option>
-              <option value="center">center</option>
             </select>
           </span>
           <button type="button" onClick={handleCoverUpdateClick}>
@@ -123,6 +124,15 @@ const admin = () => {
               ref={galleryCaptionRef}
               rows={4}
               placeholder="Add a caption"
+            />
+          </span>
+          <span className={styles.formBox}>
+            <label htmlFor="galleryTags">Add tags</label>
+            <input
+              type="text"
+              ref={galleryTagsRef}
+              id="galleryTags"
+              placeHolder="add tags seperated by ,"
             />
           </span>
           <button type="button" onClick={handleGalleryAdd}>

@@ -14,6 +14,7 @@ const ImageSchema = new mongoose.Schema({
     type: Boolean,
     default: false,
   },
+  tags: [String],
   position: String,
   width: Number,
   height: Number,
