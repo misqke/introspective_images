@@ -10,9 +10,9 @@ const Nav = () => {
   return (
     <div className={styles.navContainer}>
       <div className={styles.titleContainer}>
-        <Link href="/">
+        <Link href="/" passHref>
           <div className={styles.title}>
-            <Image src={"/logoIcon.png"} width="279" height="65" />
+            <Image src={"/logoIcon.png"} width="279" height="65" alt="logo" />
           </div>
         </Link>
         <button
@@ -25,7 +25,9 @@ const Nav = () => {
       <nav className={`${styles.nav} ${isOpen ? styles.open : null}`}>
         <ul>
           <li>
-            <a href="/#aboutContainer">About</a>
+            <Link href="/#about" passHref>
+              <a>About</a>
+            </Link>
           </li>
           <li>
             <Link href="/gallery" passHref>
@@ -33,7 +35,9 @@ const Nav = () => {
             </Link>
           </li>
           <li>
-            <a href="/#contactContainer">Contact</a>
+            <Link href="/#contact" passHref>
+              <a>Contact</a>
+            </Link>
           </li>
         </ul>
       </nav>

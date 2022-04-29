@@ -7,7 +7,7 @@ import Link from "next/link";
 import Router from "next/router";
 import axios from "axios";
 
-const admin = ({ cover, gallery }) => {
+const Admin = ({ cover, gallery }) => {
   const [coverPhoto, setCoverPhoto] = useState(cover);
   const [galleryImages, setGalleryImages] = useState(gallery);
   const [loading, setLoading] = useState(false);
@@ -23,7 +23,7 @@ const admin = ({ cover, gallery }) => {
     const reader = new FileReader();
     reader.readAsDataURL(coverInputRef.current.files[0]);
     reader.onloadend = async () => {
-      const { data } = await axios.post("http://localhost:3000/api/admin", {
+      const { data } = await axios.post(`/api/admin`, {
         newImg: reader.result,
         cover: true,
         position: coverSelectRef.current.value,
@@ -43,7 +43,7 @@ const admin = ({ cover, gallery }) => {
     });
     reader.readAsDataURL(galleryInputRef.current.files[0]);
     reader.onloadend = async () => {
-      const { data } = await axios.post("http://localhost:3000/api/admin", {
+      const { data } = await axios.post(`/api/admin`, {
         newImg: reader.result,
         cover: false,
         position: "center",
@@ -60,7 +60,7 @@ const admin = ({ cover, gallery }) => {
   const handleUpdateImage = async (img, caption, tags) => {
     setLoading(true);
     const { data } = await axios.patch(
-      "http://localhost:3000/api/admin",
+      `/api/admin`,
       {
         img,
         caption,
@@ -74,7 +74,7 @@ const admin = ({ cover, gallery }) => {
 
   const handleDeleteImage = async (img) => {
     setLoading(true);
-    const { data } = await axios.delete("http://localhost:3000/api/admin", {
+    const { data } = await axios.delete(`/api/admin`, {
       data: img,
     });
     setGalleryImages(data.data);
@@ -82,8 +82,7 @@ const admin = ({ cover, gallery }) => {
   };
 
   const handleLogout = async () => {
-    const { data } = await axios.get("http://localhost:3000/api/auth/logout");
-    console.log(data);
+    const { data } = await axios.get(`/api/auth/logout`);
     if (data.message === "logout successful") {
       Router.push("/");
     }
@@ -91,9 +90,7 @@ const admin = ({ cover, gallery }) => {
 
   useEffect(() => {
     const authenticate = async () => {
-      const { data } = await axios.get(
-        "http://localhost:3000/api/auth/authenticate"
-      );
+      const { data } = await axios.get(`/api/auth/authenticate`);
       if (data.error) {
         Router.push("/login");
       } else {
@@ -105,7 +102,7 @@ const admin = ({ cover, gallery }) => {
 
   useEffect(() => {
     const getCurrentData = async () => {
-      const { data } = await axios.get("http://localhost:3000/api/admin");
+      const { data } = await axios.get(`/api/admin`);
       setCoverPhoto(data.data.cover);
       setGalleryImages(data.data.gallery);
     };
@@ -215,10 +212,10 @@ const admin = ({ cover, gallery }) => {
   );
 };
 
-export default admin;
+export default Admin;
 
 export const getStaticProps = async () => {
-  const { data } = await axios.get("http://localhost:3000/api/admin");
+  const { data } = await axios.get(`/api/admin`);
   return {
     props: {
       cover: data.data.cover,

@@ -24,7 +24,7 @@ export default function Home({ cover, gallery, tags }) {
 }
 
 export const getStaticProps = async () => {
-  const { data } = await axios.get("http://localhost:3000/api/admin");
+  const { data } = await axios.get(`/api/admin`);
   return {
     props: {
       cover: data.data.cover,

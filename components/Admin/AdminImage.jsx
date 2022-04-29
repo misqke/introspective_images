@@ -21,7 +21,7 @@ const AdminImage = ({ img, handleDelete, handleUpdateImage }) => {
     } else {
       updateBtnRef.current.classList.remove(styles.show);
     }
-  }, [caption, tags]);
+  }, [caption, tags, img]);
 
   return (
     <div className={styles.container}>

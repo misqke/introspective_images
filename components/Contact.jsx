@@ -5,7 +5,7 @@ import styles from "../styles/Contact.module.scss";
 
 const Contact = () => {
   return (
-    <div id="contactContainer" className={styles.contactContainer}>
+    <div id="contact" className={styles.contactContainer}>
       <div className={styles.contactContent}>
         <h3>Introspective Images</h3>
         <h4>Photogropher in New Castle, PA</h4>
@@ -25,6 +25,7 @@ const Contact = () => {
             className={`${styles.icon} ${styles.facebookIcon}`}
             href="https://www.facebook.com/Moondogwp20/"
             target="_blank"
+            rel="noreferrer"
           >
             <FacebookIcon fontSize="large" />
           </a>

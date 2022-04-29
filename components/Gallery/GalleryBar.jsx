@@ -47,7 +47,7 @@ const GalleryBar = ({ imgs, tags }) => {
       setFilteredImgs(newImgList);
       setCurrentImg(newImgList[0]);
     }
-  }, [filter]);
+  }, [filter, imgs]);
 
   return (
     <div className={styles.galleryContainer}>
@@ -83,6 +83,7 @@ const GalleryBar = ({ imgs, tags }) => {
                 src={prevImg.url}
                 width={prevImg.width}
                 height={prevImg.height}
+                alt={prevImg.caption}
               />
             </span>
             <span className={`${styles.imgBox} ${styles.box2}`}>
@@ -90,6 +91,7 @@ const GalleryBar = ({ imgs, tags }) => {
                 src={currentImg.url}
                 width={currentImg.width}
                 height={currentImg.height}
+                alt={currentImg.caption}
               />
             </span>
             <span className={`${styles.imgBox} ${styles.box3}`}>
@@ -97,6 +99,7 @@ const GalleryBar = ({ imgs, tags }) => {
                 src={nextImg.url}
                 width={nextImg.width}
                 height={nextImg.height}
+                alt={nextImg.caption}
               />
             </span>
           </>

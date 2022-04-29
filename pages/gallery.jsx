@@ -5,7 +5,7 @@ import GalleryImage from "../components/Gallery/GalleryImage";
 import styles from "../styles/Gallery.module.scss";
 import axios from "axios";
 
-const gallery = ({ gallery, tags }) => {
+const Gallery = ({ gallery, tags }) => {
   return (
     <div className={styles.galleryContainer}>
       <Head>
@@ -28,10 +28,10 @@ const gallery = ({ gallery, tags }) => {
   );
 };
 
-export default gallery;
+export default Gallery;
 
 export const getStaticProps = async () => {
-  const { data } = await axios.get("http://localhost:3000/api/admin");
+  const { data } = await axios.get(`/api/admin`);
   return {
     props: {
       gallery: data.data.gallery,
