@@ -31,9 +31,7 @@ const Gallery = ({ gallery, tags }) => {
 export default Gallery;
 
 export const getServerSideProps = async () => {
-  const { data } = await axios.get(
-    `https://introspective-images.netlify.app/api/admin`
-  );
+  const { data } = await axios.get(`/api/admin`);
   return {
     props: {
       gallery: data.data.gallery,

@@ -25,9 +25,7 @@ export default function Home({ cover, gallery, tags }) {
 
 export const getServerSideProps = async () => {
   try {
-    const { data } = await axios.get(
-      `https://introspective-images.netlify.app/api/admin`
-    );
+    const { data } = await axios.get(`/api/admin`);
     return {
       props: {
         cover: data.data.cover,

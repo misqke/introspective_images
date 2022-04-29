@@ -216,9 +216,7 @@ const Admin = ({ cover, gallery }) => {
 export default Admin;
 
 export const getServerSideProps = async () => {
-  const { data } = await axios.get(
-    `https://introspective-images.netlify.app/api/admin`
-  );
+  const { data } = await axios.get(`/api/admin`);
   return {
     props: {
       cover: data.data.cover,
