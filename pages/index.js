@@ -24,12 +24,23 @@ export default function Home({ cover, gallery, tags }) {
 }
 
 export const getServerSideProps = async () => {
-  const { data } = await axios.get(`/api/admin`);
-  return {
-    props: {
-      cover: data.data.cover,
-      gallery: data.data.gallery,
-      tags: data.data.tags,
-    },
-  };
+  try {
+    const { data } = await axios.get(`/api/admin`);
+    return {
+      props: {
+        cover: data.data.cover,
+        gallery: data.data.gallery,
+        tags: data.data.tags,
+      },
+    };
+  } catch (error) {
+    console.log(error);
+    return {
+      props: {
+        cover: null,
+        gallery: null,
+        tags: null,
+      },
+    };
+  }
 };
