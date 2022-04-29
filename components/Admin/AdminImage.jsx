@@ -7,7 +7,7 @@ import Image from "next/image";
 const AdminImage = ({ img, handleDelete, handleUpdateImage }) => {
   const updateBtnRef = useRef();
   const [caption, setCaption] = useState(img.caption);
-  const [tags, setTags] = useState(img.tags.join(", "));
+  const [tags, setTags] = useState(img.tags.join(","));
 
   const handleUpdate = () => {
     const tagsArr = tags.split(",");
@@ -16,7 +16,7 @@ const AdminImage = ({ img, handleDelete, handleUpdateImage }) => {
   };
 
   useEffect(() => {
-    if (tags !== img.tags.join(", ") || caption !== img.caption) {
+    if (tags !== img.tags.join(",") || caption !== img.caption) {
       updateBtnRef.current.classList.add(styles.show);
     } else {
       updateBtnRef.current.classList.remove(styles.show);

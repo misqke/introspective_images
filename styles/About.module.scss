@@ -19,8 +19,13 @@
   .aboutContainer {
     font-size: 2.5rem;
     line-height: 3.5rem;
+  }
+}
+
+@media screen and (min-width: 1000px) {
+  .aboutContainer {
     h3 {
-      width: 50%;
+      width: 60%;
     }
   }
 }

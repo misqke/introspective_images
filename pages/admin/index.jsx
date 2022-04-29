@@ -1,15 +1,17 @@
 import React, { useState, useEffect, useRef } from "react";
-import AdminImage from "../components/Admin/AdminImage";
-import Spinner from "../components/Admin/Spinner";
-import styles from "../styles/Admin.module.scss";
+import AdminImage from "../../components/Admin/AdminImage";
+import Spinner from "../../components/Admin/Spinner";
+import styles from "../../styles/Admin.module.scss";
 import Image from "next/image";
 import Link from "next/link";
+import Router from "next/router";
 import axios from "axios";
 
 const admin = ({ cover, gallery }) => {
   const [coverPhoto, setCoverPhoto] = useState(cover);
   const [galleryImages, setGalleryImages] = useState(gallery);
   const [loading, setLoading] = useState(false);
+  const [authenticated, setAuthenticated] = useState(false);
   const coverInputRef = useRef();
   const coverSelectRef = useRef();
   const galleryInputRef = useRef();
@@ -57,11 +59,15 @@ const admin = ({ cover, gallery }) => {
 
   const handleUpdateImage = async (img, caption, tags) => {
     setLoading(true);
-    const { data } = await axios.patch("http://localhost:3000/api/admin", {
-      img,
-      caption,
-      tags,
-    });
+    const { data } = await axios.patch(
+      "http://localhost:3000/api/admin",
+      {
+        img,
+        caption,
+        tags,
+      },
+      { withCredentials: true }
+    );
     setGalleryImages(data.data);
     setLoading(false);
   };
@@ -75,6 +81,28 @@ const admin = ({ cover, gallery }) => {
     setLoading(false);
   };
 
+  const handleLogout = async () => {
+    const { data } = await axios.get("http://localhost:3000/api/auth/logout");
+    console.log(data);
+    if (data.message === "logout successful") {
+      Router.push("/");
+    }
+  };
+
+  useEffect(() => {
+    const authenticate = async () => {
+      const { data } = await axios.get(
+        "http://localhost:3000/api/auth/authenticate"
+      );
+      if (data.error) {
+        Router.push("/login");
+      } else {
+        setAuthenticated(true);
+      }
+    };
+    authenticate();
+  }, []);
+
   useEffect(() => {
     const getCurrentData = async () => {
       const { data } = await axios.get("http://localhost:3000/api/admin");
@@ -84,11 +112,20 @@ const admin = ({ cover, gallery }) => {
     getCurrentData();
   }, []);
 
+  if (!authenticated) {
+    return <div>Loading...</div>;
+  }
+
   return (
     <div className={styles.container}>
-      <Link href="/" passHref>
-        <a className={styles.homeBtn}>Back to Home Page</a>
-      </Link>
+      <div className={styles.adminNav}>
+        <Link href="/" passHref>
+          <a className={styles.homeBtn}>Back to Home Page</a>
+        </Link>
+        <button onClick={handleLogout} className={styles.homeBtn} type="button">
+          Log Out
+        </button>
+      </div>
       <div className={styles.coverContainer}>
         {coverPhoto && (
           <div className={styles.coverImgContainer}>
@@ -117,7 +154,11 @@ const admin = ({ cover, gallery }) => {
               <option value="right">right</option>
             </select>
           </span>
-          <button type="button" onClick={handleCoverUpdateClick}>
+          <button
+            className={styles.btn}
+            type="button"
+            onClick={handleCoverUpdateClick}
+          >
             Update
           </button>
         </div>
@@ -150,7 +191,11 @@ const admin = ({ cover, gallery }) => {
               placeholder="add tags seperated by ,"
             />
           </span>
-          <button type="button" onClick={handleGalleryAdd}>
+          <button
+            className={styles.btn}
+            type="button"
+            onClick={handleGalleryAdd}
+          >
             Add Image
           </button>
         </div>

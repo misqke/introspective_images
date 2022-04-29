@@ -1,6 +1,18 @@
 import dbConnect from "../../libs/dbConnect";
 import Images from "../../models/Images";
 import cloudinary from "../../libs/cloudinary";
+import { verify } from "jsonwebtoken";
+
+const checkToken = (req) => {
+  const { cookies } = req;
+  const token = cookies.IntrospectiveJWT;
+  verify(token, `${process.env.JWT_SECRET}`, (error, user) => {
+    if (error) {
+      console.log("failed authentication", error);
+      return res.status(403).json({ error });
+    }
+  });
+};
 
 export default async function handler(req, res) {
   // connect to mongo
@@ -27,6 +39,7 @@ export default async function handler(req, res) {
     }
   } else if (req.method === "POST") {
     try {
+      checkToken(req);
       if (req.body.cover === true) {
         const currentCover = await Images.findOne({ cover: true });
         await cloudinary.uploader.destroy(
@@ -59,6 +72,7 @@ export default async function handler(req, res) {
       res.status(400).json({ message: error.message });
     }
   } else if (req.method === "DELETE") {
+    checkToken(req);
     try {
       await Images.findByIdAndDelete(req.body._id);
       await cloudinary.uploader.destroy(
@@ -74,6 +88,7 @@ export default async function handler(req, res) {
       res.status(400).json({ message: error.message });
     }
   } else if (req.method === "PATCH") {
+    checkToken(req);
     try {
       await Images.findByIdAndUpdate(req.body.img._id, {
         caption: req.body.caption,
