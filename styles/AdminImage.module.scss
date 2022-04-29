@@ -4,10 +4,15 @@
   position: relative;
   text-align: center;
   height: 100%;
-  p {
-    margin: 0;
-    min-height: 20px;
-  }
+  gap: 5px;
+}
+
+.formBox {
+  display: flex;
+  width: 100%;
+  gap: 5px;
+  justify-content: center;
+  align-items: center;
 }
 
 .imgContainer {
@@ -26,8 +31,34 @@
   width: 30px;
   border-radius: 50%;
   transition-duration: 200ms;
+  cursor: pointer;
 }
 
 .deleteBtn:hover {
   background-color: #b11;
+}
+
+.updateBtn {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  bottom: 0.5rem;
+  right: 0.5rem;
+  display: none;
+  width: 35px;
+  border-radius: 50%;
+  color: #fff;
+  background-color: #39d;
+  transition-duration: 200ms;
+  cursor: pointer;
+}
+
+.show {
+  display: flex;
+}
+
+.updateBtn:hover {
+  color: #39d;
+  background-color: #fff;
 }

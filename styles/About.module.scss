@@ -1,17 +1,26 @@
 .aboutContainer {
   display: flex;
+  width: 100%;
   justify-content: center;
   font-size: 1.5rem;
   text-align: center;
-  padding: 1rem;
+  padding: 80px 1rem 1rem;
   line-height: 2.5rem;
   margin: auto;
+  background-color: #676767;
+  color: #fff;
+  letter-spacing: 1.75px;
+  h3 {
+    width: 90%;
+  }
 }
 
 @media screen and (min-width: 600px) {
   .aboutContainer {
-    width: 50%;
-    font-size: 2rem;
-    line-height: 3rem;
+    font-size: 2.5rem;
+    line-height: 3.5rem;
+    h3 {
+      width: 50%;
+    }
   }
 }

@@ -3,10 +3,11 @@ import styles from "../styles/Home.module.scss";
 import Hero from "../components/Hero";
 import Nav from "../components/Nav";
 import About from "../components/About";
-import Gallery from "../components/Gallery/Gallery";
+import GalleryBar from "../components/Gallery/GalleryBar";
+import Contact from "../components/Contact";
 import axios from "axios";
 
-export default function Home({ cover, gallery }) {
+export default function Home({ cover, gallery, tags }) {
   return (
     <div className={styles.container}>
       <Head>
@@ -16,7 +17,8 @@ export default function Home({ cover, gallery }) {
       <Nav />
       <Hero cover={cover} />
       <About />
-      <Gallery imgs={gallery} />
+      <GalleryBar imgs={gallery} tags={tags} />
+      <Contact />
     </div>
   );
 }
@@ -27,6 +29,7 @@ export const getStaticProps = async () => {
     props: {
       cover: data.data.cover,
       gallery: data.data.gallery,
+      tags: data.data.tags,
     },
   };
 };

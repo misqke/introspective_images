@@ -16,10 +16,7 @@ const Hero = ({ cover }) => {
         />
       </div>
       <div className={styles.heroContent}>
-        <div className={styles.heroContentImg}>
-          <Image src={"/icon2.png"} width="300" height="300" />
-        </div>
-        <h1>INTROSPECTIVE IMAGES</h1>
+        <Image src={"/logoColumn.png"} width="2501" height="1676" alt="logo" />
       </div>
       <a href="#aboutContainer" className={styles.arrowBtn}>
         <ArrowDownwardIcon fontSize="large" className={styles.arrow} />

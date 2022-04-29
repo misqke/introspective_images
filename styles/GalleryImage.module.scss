@@ -1,0 +1,18 @@
+.imgContainer {
+  display: flex;
+  width: 95%;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  i {
+    height: 1rem;
+    font-size: 1rem;
+  }
+}
+
+@media screen and (min-width: 400px) {
+  .imgContainer {
+    width: 175px;
+  }
+}

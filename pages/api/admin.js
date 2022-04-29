@@ -10,9 +10,17 @@ export default async function handler(req, res) {
     try {
       const cover = await Images.findOne({ cover: true });
       const gallery = await Images.find({ cover: false });
+      const tags = [];
+      gallery.forEach((img) => {
+        img.tags.forEach((tag) => {
+          if (!tags.includes(tag)) {
+            tags.push(tag);
+          }
+        });
+      });
       res.status(200).json({
         message: "images retrieved successfully",
-        data: { cover, gallery },
+        data: { cover, gallery, tags },
       });
     } catch (error) {
       res.status(400).json({ message: error.message });
@@ -40,6 +48,7 @@ export default async function handler(req, res) {
         cloudid: cloudinaryRes.public_id,
         width: cloudinaryRes.width,
         height: cloudinaryRes.height,
+        tags: req.body.tags || [],
       };
       const newImage = await Images.create(newImageData);
       res.status(201).json({
@@ -61,6 +70,19 @@ export default async function handler(req, res) {
       res
         .status(200)
         .json({ message: "Image deleted successfully", data: newGallery });
+    } catch (error) {
+      res.status(400).json({ message: error.message });
+    }
+  } else if (req.method === "PATCH") {
+    try {
+      await Images.findByIdAndUpdate(req.body.img._id, {
+        caption: req.body.caption,
+        tags: req.body.tags,
+      });
+      const newGallery = await Images.find({ cover: false });
+      res
+        .status(200)
+        .json({ message: "Image updated successfully.", data: newGallery });
     } catch (error) {
       res.status(400).json({ message: error.message });
     }
