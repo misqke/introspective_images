@@ -132,6 +132,7 @@ const Admin = ({ cover, gallery }) => {
               layout="fill"
               objectFit="cover"
               objectPosition={coverPhoto.position}
+              alt=""
             />
           </div>
         )}
@@ -214,7 +215,7 @@ const Admin = ({ cover, gallery }) => {
 
 export default Admin;
 
-export const getStaticProps = async () => {
+export const getServerSideProps = async () => {
   const { data } = await axios.get(`/api/admin`);
   return {
     props: {
