@@ -6,7 +6,7 @@
   justify-content: center;
   background-color: #ccc;
   overflow: hidden;
-  padding: 80px 0 1rem;
+  padding: 80px 0;
 }
 
 .galleryTagsContainer {
@@ -39,6 +39,7 @@
   justify-content: space-around;
   align-items: center;
   padding: 3rem 0;
+  z-index: 5;
 }
 
 .imgBox {
@@ -98,7 +99,7 @@
 
 @media screen and (min-width: 700px) {
   .galleryContainer {
-    padding: 80px 0;
+    padding: 15% 0;
   }
   .galleryTagsContainer {
     margin-bottom: 5%;
@@ -140,7 +141,7 @@
 
 @media screen and (min-width: 900px) {
   .galleryContainer {
-    padding: 120px 0 100px;
+    padding: 12% 0;
   }
   .arrow {
     width: 70px;
@@ -149,5 +150,17 @@
   .arrowBtn {
     width: 80px;
     height: 80px;
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  .galleryContainer {
+    padding: 10% 0;
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  .galleryContainer {
+    padding: 7.5% 0 10%;
   }
 }
