@@ -111,9 +111,7 @@ const GalleryBar = ({ imgs, tags }) => {
         >
           <ChevronRightSharpIcon fontSize="large" className={styles.arrow} />
         </button>
-        {currentImg.caption && (
-          <i className={styles.caption}>{currentImg.caption}</i>
-        )}
+        <i className={styles.caption}>{currentImg.caption}</i>
       </div>
     </div>
   );

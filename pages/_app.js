@@ -1,8 +1,8 @@
 import "../styles/globals.scss";
 import axios from "axios";
 
-axios.defaults.baseURL = "https://introspective-images.vercel.app";
-// axios.defaults.baseURL = "http://localhost:3000";
+// axios.defaults.baseURL = "https://introspective-images.vercel.app";
+axios.defaults.baseURL = "http://localhost:3000";
 
 function MyApp({ Component, pageProps }) {
   return <Component {...pageProps} />;
