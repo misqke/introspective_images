@@ -5,14 +5,28 @@
   align-items: center;
   justify-content: space-between;
   gap: 0.5rem;
+  padding: 0.5rem;
+  transition-duration: 300ms;
+  cursor: pointer;
   i {
     height: 1rem;
     font-size: 1rem;
+    text-align: center;
   }
+}
+
+.imgContainer:hover {
+  padding: 0;
 }
 
 @media screen and (min-width: 400px) {
   .imgContainer {
     width: 175px;
+  }
+}
+
+@media screen and (min-width: 800px) {
+  .imgContainer {
+    width: 225px;
   }
 }

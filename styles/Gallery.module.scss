@@ -1,7 +1,7 @@
 .galleryContainer {
   display: flex;
   flex-direction: column;
-  padding-top: 60px;
+  padding-top: 80px;
   background-color: #ccc;
 }
 
@@ -9,19 +9,41 @@
   display: flex;
   flex-direction: column;
   padding: 1rem;
+  h3 {
+    margin: 0.5rem;
+  }
 }
 
 .rowBox {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  gap: 1rem;
   justify-content: center;
   align-items: center;
+}
+
+.imgBox {
+  position: relative;
+  bottom: -2rem;
+  opacity: 0;
+  transition-duration: 600ms;
+}
+
+.visible {
+  bottom: 0;
+  opacity: 1;
 }
 
 @media screen and (min-width: 400px) {
   .rowBox {
     justify-content: flex-start;
+  }
+}
+
+@media screen and (min-width: 800px) {
+  .galleryContainer {
+    h3 {
+      font-size: 1.5rem;
+    }
   }
 }
