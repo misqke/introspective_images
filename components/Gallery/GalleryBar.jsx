@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import ChevronLeftSharpIcon from "@mui/icons-material/ChevronLeftSharp";
 import ChevronRightSharpIcon from "@mui/icons-material/ChevronRightSharp";
@@ -10,6 +10,7 @@ const GalleryBar = ({ imgs, tags }) => {
   const [nextImg, setNextImg] = useState(imgs[0]);
   const [filter, setFilter] = useState("all");
   const [filteredImgs, setFilteredImgs] = useState(imgs);
+  const currentRef = useRef();
 
   const handleArrowClick = (dir) => {
     if (dir === -1) {
@@ -17,6 +18,10 @@ const GalleryBar = ({ imgs, tags }) => {
     } else if (dir === 1) {
       setCurrentImg(nextImg);
     }
+    currentRef.current.classList.add(`${styles.animate}`);
+    setTimeout(() => {
+      currentRef.current.classList.remove(`${styles.animate}`);
+    }, 400);
   };
 
   useEffect(() => {
@@ -93,6 +98,7 @@ const GalleryBar = ({ imgs, tags }) => {
                 height={currentImg.height}
                 alt={currentImg.caption}
               />
+              <div ref={currentRef} className={styles.overlay}></div>
             </span>
             <span className={`${styles.imgBox} ${styles.box3}`}>
               <Image

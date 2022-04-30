@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Head from "next/head";
 import Nav from "../components/Nav";
 import GalleryImage from "../components/Gallery/GalleryImage";
@@ -6,6 +6,32 @@ import styles from "../styles/Gallery.module.scss";
 import axios from "axios";
 
 const Gallery = ({ gallery, tags }) => {
+  useEffect(() => {
+    const imgs = document.querySelectorAll("span");
+    const obs = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          entry.target.classList.toggle(
+            `${styles.visible}`,
+            entry.isIntersecting
+          );
+        });
+      },
+      {
+        threshold: 0.5,
+      }
+    );
+    imgs.forEach((img) => {
+      obs.observe(img);
+    });
+
+    return () => {
+      imgs.forEach((img) => {
+        obs.unobserve(img);
+      });
+    };
+  });
+
   return (
     <div className={styles.galleryContainer}>
       <Head>
@@ -19,7 +45,9 @@ const Gallery = ({ gallery, tags }) => {
             {gallery
               .filter((img) => img.tags.includes(tag))
               .map((img) => (
-                <GalleryImage key={img._id} img={img} />
+                <span key={img._id} className={styles.imgBox}>
+                  <GalleryImage img={img} />
+                </span>
               ))}
           </div>
         </div>
