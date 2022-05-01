@@ -96,7 +96,7 @@
   align-items: center;
   gap: 0.5rem;
   input[type="file"]::file-selector-button {
-    display: none;
+    padding: 0.25rem;
   }
   textarea,
   input {

@@ -10,7 +10,6 @@ import {
 import AdminImage from "../components/Admin/AdminImage";
 import LoadingBar from "../components/Admin/LoadingBar";
 import styles from "../styles/Admin.module.scss";
-import CreateNewFolderRoundedIcon from "@mui/icons-material/CreateNewFolderRounded";
 import CloudUploadSharpIcon from "@mui/icons-material/CloudUploadSharp";
 import Image from "next/image";
 import Link from "next/link";
@@ -179,10 +178,6 @@ const Admin = () => {
               {coverTab === true ? (
                 <>
                   <label className={styles.fileInput} htmlFor="coverFile">
-                    <CreateNewFolderRoundedIcon
-                      fontSize="large"
-                      className={styles.icon}
-                    />
                     <input
                       type="file"
                       id="coverFile"
@@ -204,10 +199,6 @@ const Admin = () => {
               ) : (
                 <>
                   <label className={styles.fileInput} htmlFor="galleryFile">
-                    <CreateNewFolderRoundedIcon
-                      fontSize="large"
-                      className={styles.icon}
-                    />
                     <input
                       type="file"
                       id="galleryFile"
