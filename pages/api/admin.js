@@ -14,6 +14,18 @@ const checkToken = (req) => {
   });
 };
 
+const getTags = (imgList) => {
+  const tags = [];
+  imgList.forEach((img) => {
+    img.tags.forEach((tag) => {
+      if (!tags.includes(tag)) {
+        tags.push(tag);
+      }
+    });
+  });
+  return tags;
+};
+
 export default async function handler(req, res) {
   // connect to mongo
   await dbConnect();
@@ -22,14 +34,7 @@ export default async function handler(req, res) {
     try {
       const cover = await Images.findOne({ cover: true });
       const gallery = await Images.find({ cover: false });
-      const tags = [];
-      gallery.forEach((img) => {
-        img.tags.forEach((tag) => {
-          if (!tags.includes(tag)) {
-            tags.push(tag);
-          }
-        });
-      });
+      const tags = getTags(gallery);
       res.status(200).json({
         message: "images retrieved successfully",
         data: { cover, gallery, tags },
@@ -81,9 +86,11 @@ export default async function handler(req, res) {
         (result, error) => console.log(error, result)
       );
       const newGallery = await Images.find({ cover: false });
-      res
-        .status(200)
-        .json({ message: "Image deleted successfully", data: newGallery });
+      const newTags = getTags(newGallery);
+      res.status(200).json({
+        message: "Image deleted successfully",
+        data: { newGallery, newTags },
+      });
     } catch (error) {
       res.status(400).json({ message: error.message });
     }
@@ -95,9 +102,11 @@ export default async function handler(req, res) {
         tags: req.body.tags,
       });
       const newGallery = await Images.find({ cover: false });
-      res
-        .status(200)
-        .json({ message: "Image updated successfully.", data: newGallery });
+      const newTags = getTags(newGallery);
+      res.status(200).json({
+        message: "Image updated successfully.",
+        data: { newGallery, newTags },
+      });
     } catch (error) {
       res.status(400).json({ message: error.message });
     }

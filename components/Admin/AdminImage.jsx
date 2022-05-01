@@ -4,14 +4,14 @@ import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import CloudUploadSharpIcon from "@mui/icons-material/CloudUploadSharp";
 import Image from "next/image";
 
-const AdminImage = ({ img, handleDelete, handleUpdateImage }) => {
+const AdminImage = ({ img, handleDelete, handleUpdate }) => {
   const updateBtnRef = useRef();
   const [caption, setCaption] = useState(img.caption);
   const [tags, setTags] = useState(img.tags.join(","));
 
-  const handleUpdate = () => {
+  const handleUpdateImage = () => {
     const tagsArr = tags.split(",");
-    handleUpdateImage(img, caption, tagsArr);
+    handleUpdate(img, caption, tagsArr);
     updateBtnRef.current.classList.remove(styles.show);
   };
 
@@ -43,7 +43,7 @@ const AdminImage = ({ img, handleDelete, handleUpdateImage }) => {
           ref={updateBtnRef}
           type="button"
           className={styles.updateBtn}
-          onClick={() => handleUpdate()}
+          onClick={() => handleUpdateImage()}
         >
           <CloudUploadSharpIcon />
         </button>
@@ -56,6 +56,7 @@ const AdminImage = ({ img, handleDelete, handleUpdateImage }) => {
           value={caption}
           cols={2}
           onChange={(e) => setCaption(e.target.value)}
+          placeholder="add a caption"
         />
       </div>
       <div className={styles.formBox}>
@@ -65,6 +66,7 @@ const AdminImage = ({ img, handleDelete, handleUpdateImage }) => {
           type="text"
           value={tags}
           onChange={(e) => setTags(e.target.value)}
+          placeholder="add tags seperated by ,"
         />
       </div>
     </div>

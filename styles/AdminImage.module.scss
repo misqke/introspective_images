@@ -5,6 +5,8 @@
   text-align: center;
   height: 100%;
   gap: 5px;
+  margin: 0;
+  width: 300px;
 }
 
 .formBox {
@@ -13,10 +15,14 @@
   gap: 5px;
   justify-content: center;
   align-items: center;
+  textarea,
+  input {
+    width: 100%;
+    padding: 0.25rem;
+  }
 }
 
 .imgContainer {
-  width: 300px;
   height: auto;
   position: relative;
 }
@@ -61,4 +67,25 @@
 .updateBtn:hover {
   color: #39d;
   background-color: #fff;
+}
+
+@media screen and (min-width: 400px) {
+  .container {
+    width: 45%;
+    max-width: 300px;
+  }
+}
+
+@media screen and (min-width: 600px) {
+  .container {
+    width: 31%;
+    max-width: 300px;
+  }
+}
+
+@media screen and (min-width: 900px) {
+  .container {
+    width: 22%;
+    max-width: 300px;
+  }
 }
