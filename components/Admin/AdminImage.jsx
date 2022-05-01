@@ -10,8 +10,7 @@ const AdminImage = ({ img, handleDelete, handleUpdate }) => {
   const [tags, setTags] = useState(img.tags.join(","));
 
   const handleUpdateImage = () => {
-    const tagsArr = tags.split(",");
-    handleUpdate(img, caption, tagsArr);
+    handleUpdate(img, caption, tags);
     updateBtnRef.current.classList.remove(styles.show);
   };
 

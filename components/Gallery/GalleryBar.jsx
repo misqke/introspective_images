@@ -8,7 +8,7 @@ const GalleryBar = ({ imgs, tags }) => {
   const [currentImg, setCurrentImg] = useState(imgs[0]);
   const [prevImg, setPrevImg] = useState(imgs[0]);
   const [nextImg, setNextImg] = useState(imgs[0]);
-  const [filter, setFilter] = useState("all");
+  const [filter, setFilter] = useState("ALL");
   const [filteredImgs, setFilteredImgs] = useState(imgs);
   const currentRef = useRef();
 
@@ -44,32 +44,36 @@ const GalleryBar = ({ imgs, tags }) => {
   }, [currentImg, filteredImgs]);
 
   useEffect(() => {
-    if (filter === "all") {
+    if (filter === "ALL") {
       setFilteredImgs(imgs);
       setCurrentImg(imgs[0]);
     } else {
-      const newImgList = imgs.filter((img) => img.tags.includes(filter.trim()));
+      const newImgList = imgs.filter((img) =>
+        img.tags.includes(filter.toLowerCase())
+      );
       setFilteredImgs(newImgList);
       setCurrentImg(newImgList[0]);
     }
   }, [filter, imgs]);
 
   return (
-    <div className={styles.galleryContainer}>
+    <div className={styles.galleryContainer} id="slideshow">
       <div className={styles.galleryTagsContainer}>
         <p
-          className={`${styles.tag} ${filter === "all" && styles.active}`}
+          className={`${styles.tag} ${filter === "ALL" && styles.active}`}
           onClick={(e) => setFilter(e.target.innerText)}
         >
-          all
+          ALL
         </p>
         {tags.map((tag) => (
           <p
             key={tag}
-            className={`${styles.tag} ${filter === tag && styles.active}`}
+            className={`${styles.tag} ${
+              filter === tag.toUpperCase() && styles.active
+            }`}
             onClick={(e) => setFilter(e.target.innerText)}
           >
-            {tag}
+            {tag.toUpperCase()}
           </p>
         ))}
       </div>

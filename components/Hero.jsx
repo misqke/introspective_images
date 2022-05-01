@@ -17,7 +17,7 @@ const Hero = ({ cover }) => {
         />
       </div>
       <div className={styles.heroContent}>
-        <Image src={"/logoColumn.png"} width="2501" height="1676" alt="logo" />
+        <Image src={"/logo.png"} width="3196" height="2238" alt="logo" />
       </div>
       <a href="#about" className={styles.arrowBtn}>
         <ArrowDownwardIcon fontSize="large" className={styles.arrow} />

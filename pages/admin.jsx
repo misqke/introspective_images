@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import Head from "next/head";
 import { authenticate } from "../controllers/auth";
 import {
   handleCoverUpdate,
@@ -79,6 +80,7 @@ const Admin = () => {
       setCoverPosition(newCoverImage.position);
     } else if (coverTab === false) {
       if (galleryFile === "") {
+        setLoading(false);
         return;
       }
       const newGalleryImage = await handleGalleryAdd(
@@ -140,6 +142,9 @@ const Admin = () => {
 
   return (
     <div className={styles.container}>
+      <Head>
+        <title>Introspective Images - Admin</title>
+      </Head>
       <div className={styles.adminNav}>
         <Link href="/" passHref>
           <a className={styles.navBtn}>Back to Home Page</a>
@@ -181,6 +186,7 @@ const Admin = () => {
                     <input
                       type="file"
                       id="coverFile"
+                      accept="image/png, image/jpeg image/jpg"
                       onChange={(e) => handleFileChange(e, true)}
                     />
                   </label>
@@ -206,6 +212,7 @@ const Admin = () => {
                     <input
                       type="file"
                       id="galleryFile"
+                      accept="image/png, image/jpeg image/jpg"
                       onChange={(e) => handleFileChange(e, false)}
                     />
                   </label>
@@ -255,7 +262,7 @@ const Admin = () => {
           </form>
         </div>
 
-        <div className={styles.LoadingContainer}>
+        <div className={styles.loadingContainer}>
           {loading === true && <LoadingBar />}
         </div>
       </div>

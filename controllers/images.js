@@ -15,7 +15,7 @@ export const handleCoverUpdate = async (img, position) => {
 
 export const handleGalleryAdd = async (img, tags, caption) => {
   const tagsArr = tags.split(",");
-  const trimmedTags = tagsArr.map((tag) => tag.trim());
+  const trimmedTags = tagsArr.map((tag) => tag.toLowerCase().trim());
   const { data } = await axios.post(
     `/api/admin`,
     {
@@ -40,12 +40,14 @@ export const handleDeleteImage = async (img) => {
 };
 
 export const handleUpdateImage = async (img, caption, tags) => {
+  const tagsArr = tags.split(",");
+  const trimmedTags = tagsArr.map((tag) => tag.toLowerCase().trim());
   const { data } = await axios.patch(
     `/api/admin`,
     {
       img,
       caption,
-      tags,
+      tags: trimmedTags,
     },
     { withCredentials: true }
   );

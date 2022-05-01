@@ -30,13 +30,18 @@ const Nav = () => {
             </Link>
           </li>
           <li>
-            <Link href="/gallery" passHref>
-              <a>Gallery</a>
+            <Link href="/#slideshow" passHref>
+              <a>Slideshow</a>
             </Link>
           </li>
           <li>
             <Link href="/#contact" passHref>
               <a>Contact</a>
+            </Link>
+          </li>
+          <li>
+            <Link href="/gallery" passHref>
+              <a>Gallery</a>
             </Link>
           </li>
         </ul>
