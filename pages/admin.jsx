@@ -181,6 +181,7 @@ const Admin = () => {
                     <input
                       type="file"
                       id="coverFile"
+                      accept="image/*"
                       onChange={(e) => handleFileChange(e, true)}
                     />
                   </label>
@@ -202,6 +203,7 @@ const Admin = () => {
                     <input
                       type="file"
                       id="galleryFile"
+                      accept="image/*"
                       onChange={(e) => handleFileChange(e, false)}
                     />
                   </label>
