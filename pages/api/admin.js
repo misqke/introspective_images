@@ -33,7 +33,7 @@ export default async function handler(req, res) {
   if (req.method === "GET") {
     try {
       const cover = await Images.findOne({ cover: true });
-      const gallery = await Images.find({ cover: false });
+      const gallery = await Images.find({ cover: false }).sort("-updatedAt");
       const tags = getTags(gallery);
       res.status(200).json({
         message: "images retrieved successfully",
