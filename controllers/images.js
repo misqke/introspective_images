@@ -1,10 +1,26 @@
 import axios from "axios";
 
-export const handleCoverUpdate = async (img, position) => {
+export const sendToCloudinary = async (img) => {
+  const { data } = await axios.post(
+    `https://api.cloudinary.com/v1_1/${process.env.NEXT_PUBLIC_CLOUD}/auto/upload`,
+    { file: img, upload_preset: "introspective" }
+  );
+  return {
+    url: data.secure_url,
+    id: data.public_id,
+    width: data.width,
+    height: data.height,
+  };
+};
+
+export const handleCoverUpdate = async (url, id, width, height, position) => {
   const { data } = await axios.post(
     `/api/admin`,
     {
-      newImg: img,
+      url,
+      id,
+      width,
+      height,
       cover: true,
       position: position,
     },
@@ -13,13 +29,23 @@ export const handleCoverUpdate = async (img, position) => {
   return data.data;
 };
 
-export const handleGalleryAdd = async (img, tags, caption) => {
+export const handleGalleryAdd = async (
+  url,
+  id,
+  width,
+  height,
+  tags,
+  caption
+) => {
   const tagsArr = tags.split(",");
   const trimmedTags = tagsArr.map((tag) => tag.toLowerCase().trim());
   const { data } = await axios.post(
     `/api/admin`,
     {
-      newImg: img,
+      url,
+      id,
+      width,
+      height,
       cover: false,
       position: "center",
       caption: caption,

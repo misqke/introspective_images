@@ -54,18 +54,15 @@ export default async function handler(req, res) {
         );
         await Images.findOneAndDelete({ cover: true });
       }
-      const cloudinaryRes = await cloudinary.uploader.upload(req.body.newImg, {
-        upload_preset: "introspective",
-      });
 
       const newImageData = {
-        url: cloudinaryRes.secure_url,
+        url: req.body.url,
         cover: req.body.cover,
         caption: req.body.caption || "",
         position: req.body.position || "center",
-        cloudid: cloudinaryRes.public_id,
-        width: cloudinaryRes.width,
-        height: cloudinaryRes.height,
+        cloudid: req.body.id,
+        width: req.body.width,
+        height: req.body.height,
         tags: req.body.tags || [],
       };
       const newImage = await Images.create(newImageData);

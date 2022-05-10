@@ -14,6 +14,7 @@ import CloudUploadSharpIcon from "@mui/icons-material/CloudUploadSharp";
 import Image from "next/image";
 import Link from "next/link";
 import Router from "next/router";
+import { sendToCloudinary } from "../controllers/images";
 import axios from "axios";
 
 const Admin = () => {
@@ -69,9 +70,15 @@ const Admin = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
+    const { url, id, width, height } = await sendToCloudinary(
+      coverTab ? previewImage : galleryFile
+    );
     if (coverTab === true) {
       const newCoverImage = await handleCoverUpdate(
-        previewImage,
+        url,
+        id,
+        width,
+        height,
         coverPosition
       );
       setCoverImage(newCoverImage);
@@ -83,7 +90,10 @@ const Admin = () => {
         return;
       }
       const newGalleryImage = await handleGalleryAdd(
-        galleryFile,
+        url,
+        id,
+        width,
+        height,
         tags,
         caption
       );
