@@ -153,3 +153,20 @@
   gap: 1rem;
   padding-bottom: 2rem;
 }
+
+.infoContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-width: 100%;
+  max-width: 100px;
+  gap: 1rem;
+  textArea {
+    width: 90%;
+    height: 5rem;
+  }
+  input {
+    width: 90%;
+  }
+}

@@ -1,23 +1,24 @@
 import React from "react";
 import FacebookIcon from "@mui/icons-material/Facebook";
 import EmailIcon from "@mui/icons-material/Email";
+import InstagramIcon from "@mui/icons-material/Instagram";
 import styles from "../styles/Contact.module.scss";
 
-const Contact = () => {
+const Contact = ({ email }) => {
   return (
     <div id="contact" className={styles.contactContainer}>
       <div className={styles.contactContent}>
         <h3>Introspective Images</h3>
         <h4>Photogropher in New Castle, PA</h4>
         <h4>
-          <a className={styles.email} href="mailto: moondogwp20@aol.com">
-            moondogwp20@aol.com
+          <a className={styles.email} href={`mailto: ${email}`}>
+            {email}
           </a>
         </h4>
         <div className={styles.iconContainer}>
           <a
             className={`${styles.icon} ${styles.emailIcon}`}
-            href="mailto: moondogwp20@aol.com"
+            href={`mailto: ${email}`}
           >
             <EmailIcon fontSize="large" />
           </a>
@@ -28,6 +29,14 @@ const Contact = () => {
             rel="noreferrer"
           >
             <FacebookIcon fontSize="large" />
+          </a>
+          <a
+            className={`${styles.icon} ${styles.instagramIcon}`}
+            href="https://www.instagram.com/Introspective.images/"
+            target="_blank"
+            rel="noreferrer"
+          >
+            <InstagramIcon fontSize="large" />
           </a>
         </div>
       </div>

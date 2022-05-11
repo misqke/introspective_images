@@ -46,6 +46,7 @@
   display: flex;
   justify-content: center;
   gap: 0.5rem;
+  align-items: center;
 }
 
 .emailIcon {
@@ -54,6 +55,25 @@
 
 .facebookIcon {
   color: #1b74e4;
+}
+
+.instagramIcon {
+  display: flex;
+  align-items: center;
+  border-radius: 0.5rem;
+  background: linear-gradient(
+    135deg,
+    #405de6,
+    #5b51d8,
+    #833ab4,
+    #c13584,
+    #e1306c,
+    #f56040,
+    #f77737,
+    #fcaf45,
+    #ffdc80
+  );
+  color: #fff;
 }
 
 // @media screen and (min-width: 800px) {

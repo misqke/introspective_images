@@ -7,7 +7,7 @@ import GalleryBar from "../components/Gallery/GalleryBar";
 import Contact from "../components/Contact";
 import axios from "axios";
 
-export default function Home({ cover, gallery, tags }) {
+export default function Home({ cover, gallery, tags, about, email }) {
   return (
     <div className={styles.container}>
       <Head>
@@ -16,21 +16,24 @@ export default function Home({ cover, gallery, tags }) {
       </Head>
       <Nav />
       <Hero cover={cover} />
-      <About />
+      <About about={about} />
       <GalleryBar imgs={gallery} tags={tags} />
-      <Contact />
+      <Contact email={email} />
     </div>
   );
 }
 
 export const getServerSideProps = async () => {
   try {
-    const { data } = await axios.get(`/api/admin`);
+    const imgData = await axios.get(`/api/admin/images`);
+    const infoData = await axios.get(`/api/admin/info`);
     return {
       props: {
-        cover: data.data.cover,
-        gallery: data.data.gallery,
-        tags: data.data.tags,
+        cover: imgData.data.data.cover,
+        gallery: imgData.data.data.gallery,
+        tags: imgData.data.data.tags,
+        about: infoData.data.data.about,
+        email: infoData.data.data.email,
       },
     };
   } catch (error) {
@@ -40,6 +43,8 @@ export const getServerSideProps = async () => {
         cover: null,
         gallery: null,
         tags: null,
+        about: null,
+        email: null,
       },
     };
   }

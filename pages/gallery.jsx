@@ -59,7 +59,7 @@ const Gallery = ({ gallery, tags }) => {
 export default Gallery;
 
 export const getServerSideProps = async () => {
-  const { data } = await axios.get(`/api/admin`);
+  const { data } = await axios.get(`/api/admin/images`);
   return {
     props: {
       gallery: data.data.gallery,

@@ -28,9 +28,12 @@ const Admin = () => {
   const [filter, setFilter] = useState("all");
   const [caption, setCaption] = useState("");
   const [tags, setTags] = useState("");
-  const [coverTab, setCoverTab] = useState(true);
+  const [tab, setTab] = useState("cover");
   const [loading, setLoading] = useState(false);
   const [authenticated, setAuthenticated] = useState(false);
+  const [about, setAbout] = useState("");
+  const [email, setEmail] = useState("");
+  const [infoID, setInfoID] = useState(0);
 
   const handleFileChange = (e, cover) => {
     const reader = new FileReader();
@@ -70,10 +73,20 @@ const Admin = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
+    if (tab === "info") {
+      const { data } = await axios.patch("/api/admin/info", {
+        id: infoID,
+        about,
+        email,
+      });
+
+      setLoading(false);
+      return;
+    }
     const { url, id, width, height } = await sendToCloudinary(
-      coverTab ? previewImage : galleryFile
+      tab === "cover" ? previewImage : galleryFile
     );
-    if (coverTab === true) {
+    if (tab === "cover") {
       const newCoverImage = await handleCoverUpdate(
         url,
         id,
@@ -84,7 +97,7 @@ const Admin = () => {
       setCoverImage(newCoverImage);
       setPreviewImage(newCoverImage.url);
       setCoverPosition(newCoverImage.position);
-    } else if (coverTab === false) {
+    } else if (tab === "gallery") {
       if (galleryFile === "") {
         setLoading(false);
         return;
@@ -120,8 +133,8 @@ const Admin = () => {
 
   // get data
   useEffect(() => {
-    const getCurrentData = async () => {
-      const { data } = await axios.get(`/api/admin`);
+    const getCurrentImageData = async () => {
+      const { data } = await axios.get(`/api/admin/images`);
       setCoverImage(data.data.cover);
       setPreviewImage(data.data.cover.url);
       setGalleryImages(data.data.gallery);
@@ -129,7 +142,14 @@ const Admin = () => {
       setCoverPosition(data.data.cover.position);
       setFilteredGalleryImages(data.data.gallery);
     };
-    getCurrentData();
+    const getCurrentInfoData = async () => {
+      const { data } = await axios.get(`/api/admin/info`);
+      setAbout(data.data.about);
+      setEmail(data.data.email);
+      setInfoID(data.data._id);
+    };
+    getCurrentImageData();
+    getCurrentInfoData();
   }, []);
 
   // update on filter change
@@ -167,25 +187,36 @@ const Admin = () => {
         <div className={styles.tabs}>
           <button
             type="button"
-            className={`${styles.tab} ${coverTab ? styles.currentTab : null}`}
-            onClick={() => setCoverTab(true)}
+            className={`${styles.tab} ${
+              tab === "cover" ? styles.currentTab : null
+            }`}
+            onClick={() => setTab("cover")}
           >
             Cover
           </button>
           <button
             type="button"
-            className={`${styles.tab} ${!coverTab ? styles.currentTab : null}`}
-            onClick={() => setCoverTab(false)}
+            className={`${styles.tab} ${
+              tab === "gallery" ? styles.currentTab : null
+            }`}
+            onClick={() => setTab("gallery")}
           >
             Gallery
           </button>
+          <button
+            type="button"
+            className={`${styles.tab} ${
+              tab === "info" ? styles.currentTab : null
+            }`}
+            onClick={() => setTab("info")}
+          >
+            Info
+          </button>
         </div>
-        <div
-          className={`${styles.form} ${!coverTab ? styles.galleryForm : null}`}
-        >
+        <div className={`${styles.form} ${!tab ? styles.galleryForm : null}`}>
           <form onSubmit={(e) => handleSubmit(e)}>
             <div className={styles.formLeft}>
-              {coverTab === true ? (
+              {tab === "cover" ? (
                 <>
                   <label className={styles.fileInput} htmlFor="coverFile">
                     <input
@@ -206,7 +237,7 @@ const Admin = () => {
                     </select>
                   </label>
                 </>
-              ) : (
+              ) : tab === "gallery" ? (
                 <>
                   <label className={styles.fileInput} htmlFor="galleryFile">
                     <input
@@ -251,6 +282,8 @@ const Admin = () => {
                     </select>
                   </label>
                 </>
+              ) : (
+                <></>
               )}
             </div>
             <div className={styles.formRight}>
@@ -267,7 +300,7 @@ const Admin = () => {
       </div>
       {/* images display */}
       <div className={styles.display}>
-        {coverTab ? (
+        {tab === "cover" ? (
           <div className={styles.coverImgContainer}>
             <Image
               src={previewImage}
@@ -279,7 +312,7 @@ const Admin = () => {
               priority
             />
           </div>
-        ) : (
+        ) : tab === "gallery" ? (
           <div className={styles.galleryImgContainer}>
             {filteredGalleryImages.map((img) => (
               <AdminImage
@@ -289,6 +322,21 @@ const Admin = () => {
                 handleUpdate={handleUpdate}
               />
             ))}
+          </div>
+        ) : (
+          <div className={styles.infoContainer}>
+            <label>About</label>
+            <textarea
+              value={about}
+              onChange={(e) => setAbout(e.target.value)}
+              cols={5}
+            />
+            <label>Email</label>
+            <input
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
           </div>
         )}
       </div>

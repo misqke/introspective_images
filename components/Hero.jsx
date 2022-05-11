@@ -4,6 +4,9 @@ import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
 import styles from "../styles/Hero.module.scss";
 
 const Hero = ({ cover }) => {
+  if (!cover) {
+    return <div></div>;
+  }
   return (
     <div className={styles.heroContainer}>
       <div className={styles.heroImg}>

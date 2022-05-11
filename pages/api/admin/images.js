@@ -1,9 +1,9 @@
-import dbConnect from "../../libs/dbConnect";
-import Images from "../../models/Images";
-import cloudinary from "../../libs/cloudinary";
+import dbConnect from "../../../libs/dbConnect";
+import Images from "../../../models/Images";
+import cloudinary from "../../../libs/cloudinary";
 import { verify } from "jsonwebtoken";
 
-const checkToken = (req) => {
+export const checkToken = (req) => {
   const { cookies } = req;
   const token = cookies.IntrospectiveJWT;
   verify(token, `${process.env.JWT_SECRET}`, (error, user) => {
