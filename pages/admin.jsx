@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Head from "next/head";
 import { authenticate } from "../controllers/auth";
 import {
@@ -18,6 +18,8 @@ import { sendToCloudinary } from "../controllers/images";
 import axios from "axios";
 
 const Admin = () => {
+  const canvasRef = useRef();
+  const imgRef = useRef();
   const [availableTags, setAvailableTags] = useState([]);
   const [coverImage, setCoverImage] = useState(null);
   const [previewImage, setPreviewImage] = useState(null);
@@ -39,11 +41,40 @@ const Admin = () => {
     const reader = new FileReader();
     reader.readAsDataURL(e.target.files[0]);
     reader.onloadend = () => {
-      if (cover === true) {
-        setPreviewImage(reader.result);
-      } else if (cover === false) {
-        setGalleryFile(reader.result);
-      }
+      const canvas = canvasRef.current;
+      const ctx = canvas.getContext("2d");
+      const myImg = imgRef.current;
+      myImg.src = reader.result;
+
+      myImg.onload = () => {
+        let ratio = 1;
+        if (myImg.width > 2000) {
+          ratio = 2000 / myImg.width;
+        } else if (myImg.height > 1200) {
+          ratio = 1200 / myImg.height;
+        }
+        const newWidth = Math.floor(myImg.width * ratio);
+        const newHeight = Math.floor(myImg.height * ratio);
+        canvas.width = newWidth;
+        canvas.height = newHeight;
+        ctx.drawImage(
+          myImg,
+          0,
+          0,
+          myImg.width,
+          myImg.height,
+          0,
+          0,
+          canvas.width,
+          canvas.height
+        );
+        const dataURL = canvas.toDataURL();
+        if (cover === true) {
+          setPreviewImage(dataURL);
+        } else if (cover === false) {
+          setGalleryFile(dataURL);
+        }
+      };
     };
   };
 
@@ -110,7 +141,7 @@ const Admin = () => {
         tags,
         caption
       );
-      setGalleryImages((prev) => [...prev, newGalleryImage]);
+      setGalleryImages((prev) => [newGalleryImage, ...prev]);
       setGalleryFile("");
       setCaption("");
       setTags("");
@@ -174,6 +205,8 @@ const Admin = () => {
       <Head>
         <title>Introspective Images - Admin</title>
       </Head>
+      <canvas ref={canvasRef} hidden></canvas>
+      <img hidden ref={imgRef} src="" alt="" />
       <div className={styles.adminNav}>
         <Link href="/" passHref>
           <a className={styles.navBtn}>Back to Home Page</a>

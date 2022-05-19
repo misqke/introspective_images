@@ -15,7 +15,7 @@ export const sendToCloudinary = async (img) => {
 
 export const handleCoverUpdate = async (url, id, width, height, position) => {
   const { data } = await axios.post(
-    `/api/admin`,
+    `/api/admin/images`,
     {
       url,
       id,
@@ -40,7 +40,7 @@ export const handleGalleryAdd = async (
   const tagsArr = tags.split(",");
   const trimmedTags = tagsArr.map((tag) => tag.toLowerCase().trim());
   const { data } = await axios.post(
-    `/api/admin`,
+    `/api/admin/images`,
     {
       url,
       id,
@@ -58,7 +58,7 @@ export const handleGalleryAdd = async (
 
 export const handleDeleteImage = async (img) => {
   const { data } = await axios.delete(
-    `/api/admin`,
+    `/api/admin/images`,
     { data: img },
     { withCredentials: true }
   );
@@ -69,7 +69,7 @@ export const handleUpdateImage = async (img, caption, tags) => {
   const tagsArr = tags.split(",");
   const trimmedTags = tagsArr.map((tag) => tag.toLowerCase().trim());
   const { data } = await axios.patch(
-    `/api/admin`,
+    `/api/admin/images`,
     {
       img,
       caption,

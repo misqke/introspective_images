@@ -82,7 +82,7 @@ export default async function handler(req, res) {
         { type: "upload", resource_type: "image" },
         (result, error) => console.log(error, result)
       );
-      const newGallery = await Images.find({ cover: false });
+      const newGallery = await Images.find({ cover: false }).sort("-updatedAt");
       const newTags = getTags(newGallery);
       res.status(200).json({
         message: "Image deleted successfully",
@@ -98,7 +98,7 @@ export default async function handler(req, res) {
         caption: req.body.caption,
         tags: req.body.tags,
       });
-      const newGallery = await Images.find({ cover: false });
+      const newGallery = await Images.find({ cover: false }).sort("-updatedAt");
       const newTags = getTags(newGallery);
       res.status(200).json({
         message: "Image updated successfully.",
