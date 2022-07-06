@@ -8,7 +8,7 @@ export default async function handler(req, res) {
       console.log("failed authentication", error);
       return res.json({ error: "invalid user" });
     } else {
-      return res.status(200).json({ message: "verified" });
+      return res.status(200).json({ user });
     }
   });
 }
