@@ -1,32 +1,5 @@
 import styled from "styled-components";
 
-export const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  min-height: 100vh;
-`;
-
-export const Box = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 100%;
-  background: #fff;
-  box-shadow: 0px 10px 6px 8px #0008;
-`;
-
-export const Content = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  max-width: 850px;
-  padding: 2rem;
-  gap: 2rem;
-`;
-
 export const Text = styled.p`
   font-size: 1em;
   max-width: 50ch;
@@ -67,6 +40,11 @@ export const ContactBtn = styled.a`
   max-width: 300px;
   border-radius: 0.5rem;
   box-shadow: 0px 8px 8px 0px #0008;
+  transition-duration: 300ms;
+  &:hover {
+    box-shadow: 0px 2px 4px 0px #0008;
+    background-color: #00f3;
+  }
   @media screen and (min-width: 800px) {
     font-size: 1.25em;
   }
@@ -88,4 +66,9 @@ export const ALink = styled.a`
   color: #00f;
   border-radius: 0.5rem;
   box-shadow: 0px 5px 8px 0px #0008;
+  transition-duration: 300ms;
+  &:hover {
+    box-shadow: 0px 2px 4px 0px #0008;
+    background-color: #00f3;
+  }
 `;

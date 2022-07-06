@@ -1,10 +1,10 @@
 import React from "react";
-import { Container, ImageBox } from "./heroStyles";
+import { ImageBox, HeroContainer } from "./heroStyles";
 import Image from "next/image";
 
 const Hero = () => {
   return (
-    <Container>
+    <HeroContainer>
       <ImageBox>
         <Image
           src={"/logo.png"}
@@ -13,7 +13,7 @@ const Hero = () => {
           objectFit="contain"
         />
       </ImageBox>
-    </Container>
+    </HeroContainer>
   );
 };
 

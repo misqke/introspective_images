@@ -21,4 +21,25 @@ const Page = styled.div`
   }
 `;
 
-export { GlobalStyles, Page, About, Hero, Gallery };
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  background: #fff;
+  box-shadow: 0px 10px 6px 8px #0008;
+  margin: 40vh;
+`;
+
+export const Content = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 95%;
+  max-width: ${(props) => props.max || 850}px;
+  padding: 2rem 0.5rem;
+  gap: 2rem;
+  overflow: hidden;
+`;
+
+export { GlobalStyles, Page, About, Hero, Gallery, Container };

@@ -1,6 +1,6 @@
 import Head from "next/head";
 import axios from "axios";
-import { Page, Hero, About } from "../components";
+import { Page, Hero, About, Gallery } from "../components";
 
 export default function Home({ cover, gallery, tags, about, email }) {
   return (
@@ -11,6 +11,7 @@ export default function Home({ cover, gallery, tags, about, email }) {
       </Head>
       <Hero />
       <About about={about} email={email} />
+      <Gallery gallery={gallery} tags={tags} />
     </Page>
   );
 }
