@@ -16,7 +16,7 @@ const Gallery = ({ gallery, tags, click }) => {
         <GalleryDisplay>
           {tags.map((tag) => (
             <GalleryRow key={tag}>
-              <RowTitle>{tag}</RowTitle>
+              <RowTitle>{tag.toUpperCase()}</RowTitle>
               <ImagesRow>
                 {gallery
                   .filter((img) => img.tags.includes(tag))

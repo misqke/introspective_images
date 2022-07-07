@@ -4,6 +4,7 @@ const GlobalStyles = createGlobalStyle`
   html, body {
     scroll-behavior: smooth;
     height: 100%;
+    font-family: 'Roboto Slab', serif;
   }
   * {
     box-sizing: border-box;
@@ -14,6 +15,7 @@ const GlobalStyles = createGlobalStyle`
     width: 8px;
     height: 5px;
     border-radius: 8px;
+    
   }
   ::-webkit-scrollbar-thumb {
     background: #888;

@@ -14,10 +14,10 @@ const Home = ({ cover, gallery, tags, about, email }) => {
 
   useEffect(() => {
     const handleScroll = () => {
-      console.log(document.body.height);
-      const scrollHeight = window.scrollY;
-      if (scrollHeight < 2300) {
-        setLogoPos(scrollHeight * 1.25);
+      const scrollHeight = window.scrollY * 1.2;
+      const bodyHeight = document.body.scrollHeight;
+      if (scrollHeight < bodyHeight - bodyHeight * 0.21) {
+        setLogoPos(scrollHeight);
       }
     };
 

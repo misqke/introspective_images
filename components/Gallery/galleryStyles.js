@@ -15,7 +15,8 @@ export const GalleryRow = styled.div`
 
 export const RowTitle = styled.h3`
   font-size: 1.5em;
-  font-weight: 550;
+  font-weight: 500;
+  font-family: "Roboto Slab", serif;
 `;
 
 export const ImagesRow = styled.div`

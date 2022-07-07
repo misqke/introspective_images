@@ -4,6 +4,7 @@ import About from "./About";
 import Gallery from "./Gallery";
 import Contact from "./Contact";
 import Overlay from "./Overlay";
+import AdminPage from "./Admin";
 
 const Page = styled.div`
   display: flex;
@@ -104,6 +105,7 @@ export {
   About,
   Gallery,
   Contact,
+  AdminPage,
   Overlay,
   Content,
   Container,
