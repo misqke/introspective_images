@@ -1,5 +1,25 @@
 import styled from "styled-components";
 
+export const AboutContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  width: 100%;
+  background: #fff;
+  box-shadow: 0px 10px 6px 8px #0008;
+  margin-top: 75vh;
+  z-index: 2;
+`;
+
+export const TextContainer = styled.div`
+  display: flex;
+  height: 25vh;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+`;
+
 export const Text = styled.p`
   font-size: 1em;
   max-width: 50ch;
@@ -25,7 +45,7 @@ export const ContactBox = styled.div`
   flex-direction: column;
   align-items: center;
   width: 100%;
-  gap: 2rem;
+  gap: 1rem;
 `;
 export const ContactBtn = styled.a`
   display: flex;
@@ -47,28 +67,5 @@ export const ContactBtn = styled.a`
   }
   @media screen and (min-width: 800px) {
     font-size: 1.25em;
-  }
-`;
-
-export const LinkBox = styled.div`
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  gap: 1rem;
-`;
-
-export const ALink = styled.a`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 4px;
-  font-size: 2em;
-  color: #00f;
-  border-radius: 0.5rem;
-  box-shadow: 0px 5px 8px 0px #0008;
-  transition-duration: 300ms;
-  &:hover {
-    box-shadow: 0px 2px 4px 0px #0008;
-    background-color: #00f3;
   }
 `;

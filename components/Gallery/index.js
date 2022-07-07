@@ -9,7 +9,7 @@ import {
 } from "./galleryStyles";
 import Image from "next/image";
 
-const Gallery = ({ gallery, tags }) => {
+const Gallery = ({ gallery, tags, click }) => {
   return (
     <Container>
       <Content max={1300}>
@@ -21,12 +21,12 @@ const Gallery = ({ gallery, tags }) => {
                 {gallery
                   .filter((img) => img.tags.includes(tag))
                   .map((img) => (
-                    <ImageBox>
+                    <ImageBox key={img._id} onClick={() => click(img)}>
                       <Image
                         src={img.url}
                         width={img.width}
                         height={img.height}
-                        objectPosition="center"
+                        objectPosition="bottom"
                       />
                     </ImageBox>
                   ))}

@@ -1,25 +1,16 @@
 import React from "react";
-import {
-  AboutContainer,
-  TextContainer,
-  Text,
-  Line,
-  ContactBox,
-  ContactBtn,
-} from "./aboutStyles";
-import { Content, LinkBox, ALink } from "..";
+import { Container, Content, LinkBox, ALink } from "..";
+import { ContactTitle, ContactText, Email, LinksBox } from "./contactStyles";
 import { FaInstagram, FaFacebookSquare } from "react-icons/fa";
 
-const About = ({ about, email }) => {
+const Contact = ({ email }) => {
   return (
-    <AboutContainer>
+    <Container>
       <Content>
-        <TextContainer>
-          <Text>{about}</Text>
-          <Line />
-        </TextContainer>
-        <ContactBox>
-          <ContactBtn href={`mailto: ${email}`}>Get in touch</ContactBtn>
+        <ContactTitle>Introspective Images</ContactTitle>
+        <ContactText>Photography services in New Castle, PA</ContactText>
+        <Email>{email}</Email>
+        <LinksBox>
           <LinkBox
             href={`https://www.facebook.com/Moondogwp20/`}
             target="_blank"
@@ -36,10 +27,10 @@ const About = ({ about, email }) => {
               <FaInstagram />
             </ALink>
           </LinkBox>
-        </ContactBox>
+        </LinksBox>
       </Content>
-    </AboutContainer>
+    </Container>
   );
 };
 
-export default About;
+export default Contact;

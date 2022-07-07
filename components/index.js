@@ -2,7 +2,8 @@ import styled from "styled-components";
 import GlobalStyles from "./GlobalStyles";
 import About from "./About";
 import Gallery from "./Gallery";
-import Hero from "./Hero";
+import Contact from "./Contact";
+import Overlay from "./Overlay";
 
 const Page = styled.div`
   display: flex;
@@ -16,8 +17,14 @@ const Page = styled.div`
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
+  gap: 70vh;
+  overflow: hidden;
   @media screen and (max-width: 900px) {
-    background-attachment: scroll;
+    background-attachment: undefined;
+    background-size: cover;
+    max-height: 100vh;
+    overflow: scroll;
+    gap: 50vh;
   }
 `;
 
@@ -28,10 +35,10 @@ const Container = styled.div`
   width: 100%;
   background: #fff;
   box-shadow: 0px 10px 6px 8px #0008;
-  margin: 40vh;
+  z-index: 2;
 `;
 
-export const Content = styled.div`
+const Content = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -42,4 +49,65 @@ export const Content = styled.div`
   overflow: hidden;
 `;
 
-export { GlobalStyles, Page, About, Hero, Gallery, Container };
+const LinkBox = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 1rem;
+`;
+
+const ALink = styled.a`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px;
+  font-size: 2em;
+  color: #00f;
+  border-radius: 0.5rem;
+  box-shadow: 0px 5px 8px 0px #0008;
+  transition-duration: 300ms;
+  &:hover {
+    box-shadow: 0px 2px 4px 0px #0008;
+    background-color: #00f3;
+  }
+`;
+
+const LogoBox = styled.div.attrs((props) => ({
+  style: {
+    transform: `translateY(${props.pos}px)`,
+  },
+}))`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 25px;
+  width: 300px;
+  max-width: 90%;
+  height: auto;
+  background: #5551;
+  border-radius: 50%;
+  backdrop-filter: blur(4px);
+  border: 0.25px solid #fff;
+  box-shadow: 0px 10px 9px 8px #0008;
+  position: absolute;
+  top: 75px;
+  z-index: 1;
+  @media screen and (min-width: 900px) {
+    padding: 50px;
+    width: 450px;
+  }
+`;
+
+export {
+  GlobalStyles,
+  Page,
+  About,
+  Gallery,
+  Contact,
+  Overlay,
+  Content,
+  Container,
+  LogoBox,
+  LinkBox,
+  ALink,
+};
