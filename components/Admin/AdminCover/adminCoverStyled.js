@@ -1,13 +1,10 @@
 import styled from "styled-components";
 
-export const CoverContainer = styled.div`
+export const CoverImgBox = styled.div`
   display: flex;
   flex-direction: column;
   flex: 1;
-  width: 100%;
-`;
-
-export const CoverImgBox = styled.div`
+  justify-content: center;
   width: 80%;
   height: auto;
 `;

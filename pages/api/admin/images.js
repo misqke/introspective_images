@@ -59,7 +59,6 @@ export default async function handler(req, res) {
         url: req.body.url,
         cover: req.body.cover,
         caption: req.body.caption || "",
-        position: req.body.position || "center",
         cloudid: req.body.id,
         width: req.body.width,
         height: req.body.height,

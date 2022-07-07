@@ -13,7 +13,7 @@ export const sendToCloudinary = async (img) => {
   };
 };
 
-export const handleCoverUpdate = async (url, id, width, height, position) => {
+export const handleCoverUpdate = async (url, id, width, height) => {
   const { data } = await axios.post(
     `/api/admin/images`,
     {
@@ -22,7 +22,6 @@ export const handleCoverUpdate = async (url, id, width, height, position) => {
       width,
       height,
       cover: true,
-      position: position,
     },
     { withCredentials: true }
   );
@@ -47,7 +46,6 @@ export const handleGalleryAdd = async (
       width,
       height,
       cover: false,
-      position: "center",
       caption: caption,
       tags: trimmedTags,
     },

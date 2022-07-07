@@ -1,10 +1,44 @@
-import React from "react";
-import { AdminPage } from "../components";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import { AdminPage, AdminLogin } from "../components";
+import { authenticate } from "../controllers/auth";
 
 const Admin = () => {
-  return <AdminPage />;
+  const [authChecked, setAuthChecked] = useState(false);
+  const [authed, setAuthed] = useState(false);
+
+  useEffect(() => {
+    const checkAuth = async () => {
+      console.log("checking auth");
+      const isAuth = await authenticate();
+      if (isAuth) {
+        setAuthed(true);
+      }
+      setAuthChecked(true);
+    };
+    checkAuth();
+  }, []);
+
+  if (!authChecked) {
+    return (
+      <div
+        style={{
+          display: "flex",
+          minHeight: "100vh",
+          width: "100vw",
+          flexDirection: "column",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        Authenticating...
+      </div>
+    );
+  } else if (!authed) {
+    return <AdminLogin setAuthed={() => setAuthed(true)} />;
+  } else {
+    return <AdminPage />;
+  }
 };
 
 export default Admin;
-
-export const getServerSideProps = async () => {};
