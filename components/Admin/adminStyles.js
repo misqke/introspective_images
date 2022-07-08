@@ -5,7 +5,6 @@ export const AdminLayout = styled.div`
   flex-direction: column;
   width: 100vw;
   height: 100vh;
-  overflow-y: scroll;
   position: relative;
   ::-webkit-scrollbar-track {
     width: 0.5rem;
@@ -93,6 +92,8 @@ export const AdminContainer = styled.div`
   flex-direction: column;
   align-items: center;
   flex: 1;
+  max-height: 100vh;
+  overflow-y: scroll;
   width: 100%;
 `;
 
@@ -117,7 +118,7 @@ export const OutlineButton = styled.button`
   border: 2px solid #00f;
   border-radius: 0.5rem;
   padding: 0.5rem;
-  font-size: 1.5rem;
+  font-size: ${(props) => props.fs || "1.5em"};
   cursor: pointer;
   transition-duration: 250ms;
   &:hover {
@@ -125,12 +126,15 @@ export const OutlineButton = styled.button`
     color: #fff;
     border-color: #fff;
   }
+  &:disabled {
+    color: #777;
+    border-color: #777;
+  }
 `;
 
 export const AdminPageContainer = styled.div`
   display: flex;
   flex-direction: column;
-  min-height: 100vh;
   align-items: center;
   width: 100%;
   padding: 2rem 1rem;
@@ -149,7 +153,7 @@ export const UpdateLabel = styled.label`
   border: 2px solid #00f;
   border-radius: 0.5rem;
   padding: 0.5rem;
-  font-size: 1.5rem;
+  font-size: ${(props) => props.fs || "1.5em"};
   cursor: pointer;
   transition-duration: 250ms;
   &:hover {

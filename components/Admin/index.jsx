@@ -14,7 +14,7 @@ import AdminGallery from "./AdminGallery";
 import { GiHamburgerMenu } from "react-icons/gi";
 import axios from "axios";
 import { useRouter } from "next/router";
-import { handleCoverUpdate } from "../../controllers/images";
+import { handleCoverUpdate, handleGalleryAdd } from "../../controllers/images";
 
 const AdminPage = () => {
   const router = useRouter();
@@ -37,6 +37,20 @@ const AdminPage = () => {
   const updateCover = async (url, id, width, height) => {
     const newCover = await handleCoverUpdate(url, id, width, height);
     setCover(newCover);
+  };
+
+  const addToGallery = async (url, id, width, height, tags, caption) => {
+    console.log("sending to server");
+    const newGalleryImage = await handleGalleryAdd(
+      url,
+      id,
+      width,
+      height,
+      tags,
+      caption
+    );
+    console.log(newGalleryImage);
+    setGallery((prev) => [newGalleryImage, ...prev]);
   };
 
   useEffect(() => {
@@ -92,7 +106,11 @@ const AdminPage = () => {
           {page === "cover" ? (
             <AdminCover cover={cover} updateCover={updateCover} />
           ) : page === "gallery" ? (
-            <AdminGallery gallery={gallery} tags={tags} />
+            <AdminGallery
+              gallery={gallery}
+              tags={tags}
+              addToGallery={addToGallery}
+            />
           ) : (
             <AdminInfo about={about} email={email} />
           )}
