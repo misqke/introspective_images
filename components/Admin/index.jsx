@@ -14,7 +14,12 @@ import AdminGallery from "./AdminGallery";
 import { GiHamburgerMenu } from "react-icons/gi";
 import axios from "axios";
 import { useRouter } from "next/router";
-import { handleCoverUpdate, handleGalleryAdd } from "../../controllers/images";
+import {
+  handleCoverUpdate,
+  handleGalleryAdd,
+  handleUpdateImage,
+  handleDeleteImage,
+} from "../../controllers/images";
 
 const AdminPage = () => {
   const router = useRouter();
@@ -40,7 +45,6 @@ const AdminPage = () => {
   };
 
   const addToGallery = async (url, id, width, height, tags, caption) => {
-    console.log("sending to server");
     const newGalleryImage = await handleGalleryAdd(
       url,
       id,
@@ -49,8 +53,19 @@ const AdminPage = () => {
       tags,
       caption
     );
-    console.log(newGalleryImage);
     setGallery((prev) => [newGalleryImage, ...prev]);
+  };
+
+  const updateGalleryImg = async (img, caption, tags) => {
+    const { newGallery, newTags } = await handleUpdateImage(img, caption, tags);
+    setGallery(newGallery);
+    setTags(newTags);
+  };
+
+  const deleteGalleryImg = async (img) => {
+    const { newGallery, newTags } = await handleDeleteImage(img);
+    setGallery(newGallery);
+    setTags(newTags);
   };
 
   useEffect(() => {
@@ -110,6 +125,8 @@ const AdminPage = () => {
               gallery={gallery}
               tags={tags}
               addToGallery={addToGallery}
+              updateImg={updateGalleryImg}
+              deleteImg={deleteGalleryImg}
             />
           ) : (
             <AdminInfo about={about} email={email} />

@@ -6,7 +6,7 @@ export const AdminGalleryOverlay = styled.div`
   position: absolute;
   align-items: center;
   padding: 1rem;
-  justify-content: space-evenly;
+  justify-content: space-center;
   top: 0;
   right: 0;
   left: 0;
@@ -16,7 +16,7 @@ export const AdminGalleryOverlay = styled.div`
   z-index: 15;
   backdrop-filter: blur(6px);
   @media screen and (min-width: 800px) {
-    flex-direction: row;
+    flex-direction: ${(props) => (props.update ? "column" : "row")};
   }
 `;
 
@@ -95,3 +95,33 @@ export const CloseBox = styled.div`
 export const GalleryCanvas = styled.canvas``;
 
 export const GalleryNewImage = styled.img``;
+
+export const GalleryDisplayBox = styled.div`
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  width: 100%;
+  gap: 0.75rem;
+  justify-content: center;
+`;
+
+export const GalleryImgBlock = styled.div`
+  display: flex;
+  width: 100%;
+  max-width: 200px;
+  cursor: pointer;
+  padding: 0.25rem;
+  transition-duration: 250ms;
+  &:hover {
+    padding: 0;
+  }
+`;
+
+export const GalleryOverlayImgBlock = styled.div`
+  display: flex;
+  width: 100%;
+  max-width: 800px;
+  @media screen and (min-width: 800px) {
+    width: 50%;
+  }
+`;

@@ -1,5 +1,10 @@
 import React, { useState, useEffect, useRef } from "react";
-import { AdminPageContainer, UpdateLabel, OutlineButton } from "../adminStyles";
+import {
+  AdminPageContainer,
+  UpdateLabel,
+  OutlineButton,
+  LoadingBanner,
+} from "../adminStyles";
 import {
   AdminGalleryOverlay,
   GalleryForm,
@@ -11,18 +16,31 @@ import {
   GalleryCanvas,
   GalleryNewImage,
   GallerySwitch,
+  GalleryDisplayBox,
+  GalleryImgBlock,
+  GalleryOverlayImgBlock,
 } from "./adminGalleryStyles";
 import { AiFillCloseCircle } from "react-icons/ai";
 import { sendToCloudinary } from "../../../controllers/images";
 import Image from "next/image";
 
-const AdminGallery = ({ gallery, tags, addToGallery }) => {
+const AdminGallery = ({
+  gallery,
+  tags,
+  addToGallery,
+  updateImg,
+  deleteImg,
+}) => {
   const canvasRef = useRef();
   const newImgRef = useRef();
+  const [loading, setLoading] = useState("");
   const [displayAddNew, setDisplayAddNew] = useState(false);
   const [newImage, setNewImage] = useState("");
   const [newTags, setNewTags] = useState("");
   const [newCaption, setNewCaption] = useState("");
+  const [imgToEdit, setImgToEdit] = useState(null);
+  const [updatedTags, setUpdatedTags] = useState("");
+  const [updatedCaption, setUpdatedCaption] = useState("");
 
   const handleChange = (e) => {
     const reader = new FileReader();
@@ -32,23 +50,52 @@ const AdminGallery = ({ gallery, tags, addToGallery }) => {
     };
   };
 
-  const closeOverlay = () => {
+  const closeAddNew = () => {
     setDisplayAddNew(false);
     setNewImage("");
     setNewTags("");
     setNewCaption("");
   };
 
+  const closeEditImg = () => {
+    setImgToEdit(null);
+    setUpdatedCaption("");
+    setUpdatedTags("");
+  };
+
+  const openUpdateImg = (img) => {
+    setImgToEdit(img);
+    setUpdatedCaption(img.caption);
+    setUpdatedTags(img.tags);
+  };
+
   const handleAddImage = async (e) => {
     e.preventDefault();
-    console.log("sending to cloudinary");
+    setLoading("Adding Image...");
     try {
       const { url, id, width, height } = await sendToCloudinary(newImage);
-      console.log("from cloudinary: ", url);
-      addToGallery(url, id, width, height, newTags, newCaption);
+      await addToGallery(url, id, width, height, newTags, newCaption);
+      setLoading("");
+      closeAddNew();
     } catch (error) {
       console.log(error);
+      setLoading("");
     }
+  };
+
+  const handleUpdateImg = async (e) => {
+    e.preventDefault();
+    setLoading("Updating image...");
+    await updateImg(imgToEdit, updatedCaption, updatedTags);
+    setLoading("");
+    closeEditImg();
+  };
+
+  const handleDeleteImg = async () => {
+    setLoading("Deleting Image...");
+    await deleteImg(imgToEdit);
+    setLoading("");
+    closeEditImg();
   };
 
   useEffect(() => {
@@ -90,8 +137,65 @@ const AdminGallery = ({ gallery, tags, addToGallery }) => {
 
   return (
     <AdminPageContainer>
+      {loading.length > 0 && <LoadingBanner>{loading}</LoadingBanner>}
+      {/* edit img */}
+      {imgToEdit !== null && (
+        <AdminGalleryOverlay update={true} show={true}>
+          <CloseBox onClick={() => closeEditImg()}>
+            <AiFillCloseCircle />
+          </CloseBox>
+          <GalleryOverlayImgBlock>
+            <Image
+              src={imgToEdit.url}
+              width={imgToEdit.width}
+              height={imgToEdit.height}
+            />
+          </GalleryOverlayImgBlock>
+          <GalleryForm onSubmit={(e) => handleUpdateImg(e)}>
+            <GalleryFormControl>
+              <GalleryFormLabel htmlFor="updatedTags">Tags: </GalleryFormLabel>
+              <GalleryFormTags
+                id="updatedTags"
+                value={updatedTags}
+                type="text"
+                onChange={(e) => setUpdatedTags(e.target.value)}
+              />
+            </GalleryFormControl>
+            <GalleryFormControl>
+              <GalleryFormLabel htmlFor="updatedCaption">
+                Caption:{" "}
+              </GalleryFormLabel>
+              <GalleryFormCaption
+                rows={2}
+                value={updatedCaption}
+                onChange={(e) => setUpdatedCaption(e.target.value)}
+                id="updatedCaption"
+              />
+            </GalleryFormControl>
+            <OutlineButton
+              fs="1em"
+              disabled={
+                imgToEdit.tags === updatedTags &&
+                imgToEdit.caption === updatedCaption
+              }
+              type="submit"
+            >
+              Update
+            </OutlineButton>
+            <OutlineButton
+              fs="1em"
+              type="button"
+              warn
+              onClick={() => handleDeleteImg()}
+            >
+              Delete Image
+            </OutlineButton>
+          </GalleryForm>
+        </AdminGalleryOverlay>
+      )}
+      {/* add new img */}
       <AdminGalleryOverlay show={displayAddNew}>
-        <CloseBox onClick={() => closeOverlay()}>
+        <CloseBox onClick={() => closeAddNew()}>
           <AiFillCloseCircle />
         </CloseBox>
         <GalleryForm onSubmit={(e) => handleAddImage(e)}>
@@ -140,6 +244,13 @@ const AdminGallery = ({ gallery, tags, addToGallery }) => {
       <OutlineButton type="button" onClick={() => setDisplayAddNew(true)}>
         Add New Image
       </OutlineButton>
+      <GalleryDisplayBox>
+        {gallery.map((img) => (
+          <GalleryImgBlock key={img._id} onClick={() => openUpdateImg(img)}>
+            <Image src={img.url} width={img.width} height={img.height} />
+          </GalleryImgBlock>
+        ))}
+      </GalleryDisplayBox>
     </AdminPageContainer>
   );
 };

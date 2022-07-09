@@ -110,19 +110,18 @@ export const OutlineButton = styled.button`
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #00f;
+  color: ${(props) => (props.warn ? "#f00" : "#00f")};
   background: transparent;
-  color: #00f;
   width: 90%;
   max-width: 400px;
-  border: 2px solid #00f;
+  border: 2px solid ${(props) => (props.warn ? "#f00" : "#00f")};
   border-radius: 0.5rem;
   padding: 0.5rem;
   font-size: ${(props) => props.fs || "1.5em"};
   cursor: pointer;
   transition-duration: 250ms;
   &:hover {
-    background: #00f8;
+    background: ${(props) => (props.warn ? "#f00" : "#00f")};
     color: #fff;
     border-color: #fff;
   }
@@ -161,4 +160,20 @@ export const UpdateLabel = styled.label`
     color: #fff;
     border-color: #fff;
   }
+`;
+
+export const LoadingBanner = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #00f;
+  color: #fff;
+  font-size: 2em;
+  padding: 1rem;
+  z-index: 20;
 `;

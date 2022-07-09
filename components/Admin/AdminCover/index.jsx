@@ -1,22 +1,27 @@
-import React from "react";
+import React, { useState } from "react";
 import { CoverImgBox } from "./adminCoverStyled";
-import { AdminPageContainer, UpdateLabel } from "../adminStyles";
+import { AdminPageContainer, UpdateLabel, LoadingBanner } from "../adminStyles";
 import { sendToCloudinary } from "../../../controllers/images";
 import Image from "next/image";
 
 const AdminCover = ({ cover, updateCover }) => {
+  const [loading, setLoading] = useState("");
+
   const handleChange = async (file) => {
     if (!file) return;
+    setLoading("Updating Cover Photo...");
     const reader = new FileReader();
     reader.readAsDataURL(file);
     reader.onloadend = async () => {
       const { url, id, width, height } = await sendToCloudinary(reader.result);
-      updateCover(url, id, width, height);
+      await updateCover(url, id, width, height);
+      setLoading("");
     };
   };
 
   return (
     <AdminPageContainer>
+      {loading.length > 0 && <LoadingBanner>{loading}</LoadingBanner>}
       <UpdateLabel htmlFor="coverInput">
         <input
           type="file"
