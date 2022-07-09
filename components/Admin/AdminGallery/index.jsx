@@ -151,7 +151,7 @@ const AdminGallery = ({
               height={imgToEdit.height}
             />
           </GalleryOverlayImgBlock>
-          <GalleryForm onSubmit={(e) => handleUpdateImg(e)}>
+          <GalleryForm info onSubmit={(e) => handleUpdateImg(e)}>
             <GalleryFormControl>
               <GalleryFormLabel htmlFor="updatedTags">Tags: </GalleryFormLabel>
               <GalleryFormTags

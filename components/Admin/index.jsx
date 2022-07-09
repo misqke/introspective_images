@@ -31,6 +31,7 @@ const AdminPage = () => {
   const [tags, setTags] = useState([]);
   const [about, setAbout] = useState("");
   const [email, setEmail] = useState("");
+  const [infoId, setInfoId] = useState(0);
 
   const logOut = async () => {
     const { data } = await axios.get(`/api/auth/logout`);
@@ -68,6 +69,17 @@ const AdminPage = () => {
     setTags(newTags);
   };
 
+  const updateInfo = async (about, email) => {
+    const { data } = await axios.patch(`/api/admin/info`, {
+      id: infoId,
+      about,
+      email,
+    });
+    setEmail(data.email);
+    setAbout(data.about);
+    setInfoId(data._id);
+  };
+
   useEffect(() => {
     const getImageData = async () => {
       const { data } = await axios.get(`/api/admin/images`);
@@ -80,6 +92,7 @@ const AdminPage = () => {
       const { data } = await axios.get(`api/admin/info`);
       setAbout(data.data.about);
       setEmail(data.data.email);
+      setInfoId(data.data._id);
     };
     getImageData();
     getInfoData();
@@ -129,7 +142,7 @@ const AdminPage = () => {
               deleteImg={deleteGalleryImg}
             />
           ) : (
-            <AdminInfo about={about} email={email} />
+            <AdminInfo about={about} email={email} updateInfo={updateInfo} />
           )}
         </AdminContainer>
       )}

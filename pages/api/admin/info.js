@@ -13,10 +13,14 @@ export default async function handler(req, res) {
     });
   } else if (req.method === "PATCH") {
     checkToken(req);
-    const newInfo = await Info.findByIdAndUpdate(req.body.id, {
-      about: req.body.about,
-      email: req.body.email,
-    });
+    const newInfo = await Info.findByIdAndUpdate(
+      req.body.id,
+      {
+        about: req.body.about,
+        email: req.body.email,
+      },
+      { new: true }
+    );
     res.status(201).json(newInfo);
   }
 }

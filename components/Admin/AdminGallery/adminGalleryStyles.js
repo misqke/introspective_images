@@ -12,6 +12,8 @@ export const AdminGalleryOverlay = styled.div`
   left: 0;
   gap: 1rem;
   min-height: 100vh;
+  height: 100vh;
+  overflow-y: scroll;
   background: #0003;
   z-index: 15;
   backdrop-filter: blur(6px);
@@ -27,17 +29,18 @@ export const GalleryForm = styled.form`
   width: 100%;
   padding: 1rem;
   max-width: 300px;
+  min-width: 200px;
   background-color: #333;
   gap: 1rem;
   border-radius: 0.5rem;
   margin-top: 2.25rem;
   @media screen and (min-width: 500px) {
-    flex-direction: row;
+    flex-direction: ${(props) => (props.info ? "column" : "row")};
     max-width: 600px;
   }
   @media screen and (min-width: 800px) {
     flex-direction: column;
-    max-width: 300px;
+    max-width: ${(props) => (props.info ? "600px" : "300px")};
   }
 `;
 

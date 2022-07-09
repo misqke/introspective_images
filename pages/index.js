@@ -58,6 +58,7 @@ export const getServerSideProps = async () => {
         tags: imgData.data.data.tags,
         about: infoData.data.data.about,
         email: infoData.data.data.email,
+        infoId: infoData.data.data._id,
       },
     };
   } catch (error) {
