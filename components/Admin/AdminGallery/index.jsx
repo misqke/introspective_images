@@ -247,7 +247,12 @@ const AdminGallery = ({
       <GalleryDisplayBox>
         {gallery.map((img) => (
           <GalleryImgBlock key={img._id} onClick={() => openUpdateImg(img)}>
-            <Image src={img.url} width={img.width} height={img.height} />
+            <Image
+              src={img.url}
+              width={img.width}
+              height={img.height}
+              alt={img.caption}
+            />
           </GalleryImgBlock>
         ))}
       </GalleryDisplayBox>

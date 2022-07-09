@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
 import { AdminPage, AdminLogin } from "../components";
 import { authenticate } from "../controllers/auth";
 
@@ -9,7 +8,6 @@ const Admin = () => {
 
   useEffect(() => {
     const checkAuth = async () => {
-      console.log("checking auth");
       const isAuth = await authenticate();
       if (isAuth) {
         setAuthed(true);

@@ -26,7 +26,7 @@ const Gallery = ({ gallery, tags, click }) => {
                         src={img.url}
                         width={img.width}
                         height={img.height}
-                        objectPosition="bottom"
+                        alt={img.caption}
                       />
                     </ImageBox>
                   ))}

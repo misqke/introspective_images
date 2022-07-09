@@ -32,7 +32,12 @@ const AdminCover = ({ cover, updateCover }) => {
         Update Cover
       </UpdateLabel>
       <CoverImgBox>
-        <Image src={cover.url} width={cover.width} height={cover.height} />
+        <Image
+          src={cover.url}
+          width={cover.width}
+          height={cover.height}
+          alt="cover photo"
+        />
       </CoverImgBox>
     </AdminPageContainer>
   );

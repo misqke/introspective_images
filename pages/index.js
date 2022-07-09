@@ -36,7 +36,7 @@ const Home = ({ cover, gallery, tags, about, email }) => {
       </Head>
       <Overlay img={selectedImage} click={handleSelectImage} />
       <LogoBox pos={logoPos}>
-        <Image src={"/logo.png"} width={2447} height={1713} priority />
+        <Image src={"/logo.png"} width={2447} height={1713} priority alt="" />
       </LogoBox>
       <About about={about} email={email} />
       <Gallery gallery={gallery} tags={tags} click={handleSelectImage} />
