@@ -20,12 +20,12 @@ const About = ({ about, email }) => {
         </TextContainer>
         <ContactBox>
           <ContactBtn href={`mailto: ${email}`}>Get in touch</ContactBtn>
-          <LinkBox
-            href={`https://www.facebook.com/Moondogwp20/`}
-            target="_blank"
-            rel="noreferrer"
-          >
-            <ALink>
+          <LinkBox>
+            <ALink
+              href={`https://www.facebook.com/Moondogwp20/`}
+              target="_blank"
+              rel="noreferrer"
+            >
               <FaFacebookSquare />
             </ALink>
             <ALink

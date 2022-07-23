@@ -11,12 +11,12 @@ const Contact = ({ email }) => {
         <ContactText>Photography services in New Castle, PA</ContactText>
         <Email>{email}</Email>
         <LinksBox>
-          <LinkBox
-            href={`https://www.facebook.com/Moondogwp20/`}
-            target="_blank"
-            rel="noreferrer"
-          >
-            <ALink>
+          <LinkBox>
+            <ALink
+              href={`https://www.facebook.com/Moondogwp20/`}
+              target="_blank"
+              rel="noreferrer"
+            >
               <FaFacebookSquare />
             </ALink>
             <ALink

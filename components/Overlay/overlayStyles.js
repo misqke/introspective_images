@@ -9,17 +9,21 @@ export const OverlayContainer = styled.div`
   left: 0;
   right: 0;
   width: 100%;
-  min-height: 100vh;
-  background: #0003;
+  height: 100vh;
+  background: #0006;
   backdrop-filter: blur(6px);
   z-index: 20;
 `;
 
 export const OverlayImage = styled.div`
-  width: 95%;
-  max-width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 90%;
+  max-width: 1400px;
+  padding: 1rem;
   height: auto;
-  @media screen and (min-width: 900px) {
+  @media screen and (min-width: 700px) {
     width: 75%;
   }
 `;

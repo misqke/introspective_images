@@ -10,9 +10,9 @@ const Overlay = ({ img, click }) => {
       <OverlayImage>
         <Image
           src={img.url}
-          layout="responsive"
           width={img.width}
           height={img.height}
+          objectFit="contain"
         />
       </OverlayImage>
       <CloseBox onClick={() => click(null)}>
